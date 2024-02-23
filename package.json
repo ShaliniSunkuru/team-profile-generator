@@ -1,0 +1,30 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "application to generate team profiles based on command line prompts answered",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "team-profile-generator"
+  },
+  "keywords": [
+    "npm",
+    "node",
+    "inquirer",
+    "jest"
+  ],
+  "author": "Shalini",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^6.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
