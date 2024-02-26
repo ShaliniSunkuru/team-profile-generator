@@ -10,8 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+const teamMembers = [];
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
 
 //Function that returns array of questions to be asked for employeeType.
 const questions = employeeType => {
@@ -62,8 +62,6 @@ const questions = employeeType => {
 
 } 
 
-// console.log(questions("engineer"));
-
 //Function that returns menu for inquirer prompt
 const menu = () =>{
     return [
@@ -76,8 +74,59 @@ const menu = () =>{
     ]
 }
 
-//prompt inquirer with questions to manager
-//create manager object with answers
-//prompt inquirer menu
-//repeat for choice of intern, engineer
-//call page-template to write to file
+//Function to display menu and handle selected choice from menu
+const inquirerMenu = () =>{
+    return inquirer.prompt(menu())
+        .then((choice) =>{        
+                if(choice.menu === 'Add an engineer'){
+                    inquirerEmployee('engineer');
+                } else if(choice.menu === 'Add an intern'){
+                    inquirerEmployee('intern');
+                }else{
+                    console.log("Let us render HTML")
+                    console.log(teamMembers)
+                }                  
+            })
+}
+
+//Function to prompt inquirer with questions to employeeType
+const inquirerEmployee = employeeType => {
+    switch(employeeType){
+        case 'manager':
+            return inquirer.prompt(questions('manager'))
+                .then((answers)=>{
+                    const {name, id, email, officeNumber} = answers;
+                    //create object of Manager class
+                    const manager = new Manager(name, id, email, officeNumber);
+                    //push created manager to teamMembers array
+                    teamMembers.push(manager);
+                    inquirerMenu();
+                })
+        case 'engineer':
+            return inquirer.prompt(questions('engineer'))
+                .then((answers)=>{
+                    const {name, id, email, gitHub} = answers;
+                    //create object of Engineer class
+                    const engineer = new Engineer(name, id, email, gitHub);
+                    //push created engineer to teamMembers array
+                    teamMembers.push(engineer);
+                    inquirerMenu();
+                })
+        case 'intern':
+            return inquirer.prompt(questions('intern'))
+                .then((answers)=>{
+                    const {name, id, email, school} = answers;
+                    //create object of Intern class
+                    const intern = new Intern(name, id, email, school);
+                    //push created intern to teamMembers array
+                    teamMembers.push(intern);
+                    inquirerMenu();
+                })
+    }
+    
+}
+
+inquirerEmployee('manager');
+
+//TODO: call page-template 
+//Write to file
