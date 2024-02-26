@@ -9,8 +9,6 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
-const Employee = require("./lib/Employee.js");
-const { off } = require("process");
 
 const teamMembers = [];
 
