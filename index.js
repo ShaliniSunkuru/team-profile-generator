@@ -83,8 +83,10 @@ const inquirerMenu = () =>{
                 } else if(choice.menu === 'Add an intern'){
                     inquirerEmployee('intern');
                 }else{
-                    console.log("Let us render HTML")
-                    console.log(teamMembers)
+                    //Render HTML from page-template.js
+                    const teamHTML = render(teamMembers);
+                    //Write to html file
+                    writeToFile(teamHTML);                    
                 }                  
             })
 }
@@ -126,7 +128,11 @@ const inquirerEmployee = employeeType => {
     
 }
 
-inquirerEmployee('manager');
+//Function to write to html file
+const writeToFile = dataHTML => {
+    fs.writeFile(outputPath,dataHTML,err =>{
+        err?console.log(err):console.log('Success! Your team profile is saved to team.html file in the output folder.');
+    })
+}
 
-//TODO: call page-template 
-//Write to file
+inquirerEmployee('manager');
