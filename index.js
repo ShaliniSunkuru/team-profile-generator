@@ -16,6 +16,8 @@ const teamMembers = [];
 //Function that returns array of questions to be asked for employeeType.
 const questions = employeeType => {
     const questionsArray = [];
+
+    //question objects
     const nameQ = {
         type: 'input',
         name: 'name',
@@ -46,7 +48,11 @@ const questions = employeeType => {
         name: 'school',
         message: 'Please enter school'
     }
+
+    //common questions for all employees
     questionsArray.push(nameQ, idQ, emailQ);
+
+    //questions based on employeeType
     switch(employeeType){
         case 'manager':
             questionsArray.push(officeNumQ);
@@ -76,7 +82,7 @@ const menu = () =>{
 
 //Function to display menu and handle selected choice from menu
 const inquirerMenu = () =>{
-    return inquirer.prompt(menu())
+    inquirer.prompt(menu())
         .then((choice) =>{        
                 if(choice.menu === 'Add an engineer'){
                     inquirerEmployee('engineer');
@@ -95,7 +101,7 @@ const inquirerMenu = () =>{
 const inquirerEmployee = employeeType => {
     switch(employeeType){
         case 'manager':
-            return inquirer.prompt(questions('manager'))
+            inquirer.prompt(questions('manager'))
                 .then((answers)=>{
                     const {name, id, email, officeNumber} = answers;
                     //create object of Manager class
@@ -104,8 +110,9 @@ const inquirerEmployee = employeeType => {
                     teamMembers.push(manager);
                     inquirerMenu();
                 })
+            break;
         case 'engineer':
-            return inquirer.prompt(questions('engineer'))
+            inquirer.prompt(questions('engineer'))
                 .then((answers)=>{
                     const {name, id, email, gitHub} = answers;
                     //create object of Engineer class
@@ -114,8 +121,9 @@ const inquirerEmployee = employeeType => {
                     teamMembers.push(engineer);
                     inquirerMenu();
                 })
+            break;
         case 'intern':
-            return inquirer.prompt(questions('intern'))
+            inquirer.prompt(questions('intern'))
                 .then((answers)=>{
                     const {name, id, email, school} = answers;
                     //create object of Intern class
@@ -124,6 +132,7 @@ const inquirerEmployee = employeeType => {
                     teamMembers.push(intern);
                     inquirerMenu();
                 })
+            break;
     }
     
 }
