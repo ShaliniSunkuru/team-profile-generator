@@ -15,38 +15,58 @@ const teamMembers = [];
 
 //Function that returns array of questions to be asked for employeeType.
 const questions = employeeType => {
+    
+    //Function to validate input is entered
+    const validateNotBlank = input => {
+        return input ? true : 'Input cannot be blank!';
+    }
+
+    //Function to validate input is a number
+    const validateNumber = input => {
+        return !(input) || isNaN(input) ? 'Input needs to be a number!' : true;
+    }
+
     const questionsArray = [];
 
     //question objects
     const nameQ = {
         type: 'input',
         name: 'name',
-        message: `Please enter ${employeeType} name`
+        message: `Please enter ${employeeType} name`,
+        validate: validateNotBlank
     }
     const idQ = {
         type: 'input',
         name: 'id',
-        message: 'Please enter Employee Id'
+        message: 'Please enter Employee Id',
+        validate: validateNotBlank
     }
     const emailQ = {
         type: 'input',
         name: 'email',
-        message: 'Please enter email Id'
+        message: 'Please enter email Id',
+        validate: validateEmail = email =>{
+            const regEmail = /\S+@\S+\.\S+/;
+            return regEmail.test(email) ? true : 'Please enter email id in the foramt something@something.something';
+        }
     }
     const officeNumQ = {
         type: 'input',
         name: 'officeNumber',
-        message: 'What is your office number?'
+        message: 'What is your office number?',
+        validate: validateNumber
     }
     const gitHubQ = {
         type: 'input',
         name: 'gitHub',
-        message: 'Please enter github user name'
+        message: 'Please enter github user name',
+        validate: validateNotBlank
     }
     const schoolQ = {
         type: 'input',
         name: 'school',
-        message: 'Please enter school'
+        message: 'Please enter school',
+        validate: validateNotBlank
     }
 
     //common questions for all employees
@@ -64,6 +84,7 @@ const questions = employeeType => {
             questionsArray.push(schoolQ);
             break;    
     }
+
     return questionsArray;
 
 } 
