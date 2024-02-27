@@ -85,12 +85,7 @@ const questions = employeeType => {
             break;    
     }
 
-
-
-
     return questionsArray;
-
-
 
 } 
 
